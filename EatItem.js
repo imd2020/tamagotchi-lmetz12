@@ -3,6 +3,7 @@ export default class EatItem {
     this.x = x;
     this.y = y;
     this.s = s;
+    this.eat = false;
   }
 
   display() {
@@ -14,7 +15,7 @@ export default class EatItem {
     let xItem = 90 * this.s;
     let yItem = 50 * this.s;
 
-    if (eat === true) {
+    if (this.eat === true) {
       stroke(255, 140, 0);
       fill(255, 140, 0);
       rect(this.x, this.y, xItem, yItem);

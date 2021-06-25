@@ -21,71 +21,49 @@ export default class Egg {
 
   //contour egg
   drawEgg() {
-    let xEgg = 20;
-    let yEgg = 20;
-    let sEgg = 1.0;
+    let xEgg = 20 * this.s;
+    let yEgg = 20 * this.s;
 
     noStroke();
     fill(0, 0, 0);
 
-    rect(this.x, this.y, xEgg * sEgg, yEgg * sEgg);
-    rect(this.x + 20 * sEgg, this.y - 20 * sEgg, xEgg * sEgg, yEgg * sEgg);
-    rect(this.x + 40 * sEgg, this.y - 40 * sEgg, xEgg + 40 * sEgg, yEgg * sEgg);
-    rect(this.x + 100 * sEgg, this.y - 20 * sEgg, xEgg * sEgg, yEgg * sEgg);
-    rect(this.x + 120 * sEgg, this.y, xEgg * sEgg, yEgg * sEgg);
-    rect(
-      this.x + 140 * sEgg,
-      this.y + 20 * sEgg,
-      xEgg * sEgg,
-      yEgg + 20 * sEgg
-    );
-    rect(
-      this.x + 160 * sEgg,
-      this.y + 60 * sEgg,
-      xEgg * sEgg,
-      yEgg + 40 * sEgg
-    );
-    rect(this.x + 140 * sEgg, this.y + 120 * sEgg, xEgg * sEgg, yEgg * sEgg);
-    rect(this.x + 120 * sEgg, this.y + 140 * sEgg, xEgg * sEgg, yEgg * sEgg);
-    rect(this.x - 20 * sEgg, this.y + 20 * sEgg, xEgg * sEgg, yEgg + 20 * sEgg);
-    rect(this.x - 40 * sEgg, this.y + 60 * sEgg, xEgg * sEgg, yEgg + 40 * sEgg);
-    rect(this.x - 20 * sEgg, this.y + 120 * sEgg, xEgg * sEgg, yEgg * sEgg);
-    rect(this.x * sEgg, this.y + 140 * sEgg, xEgg * sEgg, yEgg * sEgg);
-    rect(
-      this.x + 20 * sEgg,
-      this.y + 160 * sEgg,
-      xEgg + 80 * sEgg,
-      yEgg * sEgg
-    );
+    rect(this.x, this.y, xEgg, yEgg);
+    rect(this.x + 20 * this.s, this.y - 20 * this.s, xEgg, yEgg);
+    rect(this.x + 40 * this.s, this.y - 40 * this.s, xEgg + 40 * this.s, yEgg);
+    rect(this.x + 100 * this.s, this.y - 20 * this.s, xEgg, yEgg);
+    rect(this.x + 120 * this.s, this.y, xEgg, yEgg);
+    rect(this.x + 140 * this.s, this.y + 20 * this.s, xEgg, yEgg + 20 * this.s);
+    rect(this.x + 160 * this.s, this.y + 60 * this.s, xEgg, yEgg + 40 * this.s);
+    rect(this.x + 140 * this.s, this.y + 120 * this.s, xEgg, yEgg);
+    rect(this.x + 120 * this.s, this.y + 140 * this.s, xEgg, yEgg);
+    rect(this.x - 20 * this.s, this.y + 20 * this.s, xEgg, yEgg + 20 * this.s);
+    rect(this.x - 40 * this.s, this.y + 60 * this.s, xEgg, yEgg + 40 * this.s);
+    rect(this.x - 20 * this.s, this.y + 120 * this.s, xEgg, yEgg);
+    rect(this.x, this.y + 140 * this.s, xEgg, yEgg);
+    rect(this.x + 20 * this.s, this.y + 160 * this.s, xEgg + 80 * this.s, yEgg);
   }
 
   //shading egg
-  drawDetails() { 
-    let xEgg = 20;
-    let yEgg = 20;
-    let sEgg = 1.0;
+  drawDetails() {
+    let xEgg = 20 * this.s;
+    let yEgg = 20 * this.s;
 
     noStroke();
     fill(192, 192, 192);
 
-    rect(this.x * sEgg, this.y + 120 * sEgg, xEgg + 20 * sEgg, yEgg * sEgg);
-    rect(this.x + 20 * sEgg, this.y + 140 * sEgg, xEgg * sEgg, yEgg * sEgg);
-    rect(
-      this.x + 40 * sEgg,
-      this.y + 140 * sEgg,
-      xEgg + 60 * sEgg,
-      yEgg * sEgg
-    );
-    rect(this.x - 20 * sEgg, this.y + 60 * sEgg, xEgg * sEgg, yEgg + 40 * sEgg);
-    rect(this.x, this.y + 20 * sEgg, xEgg * sEgg, yEgg + 20 * sEgg);
-    rect(this.x + 20 * sEgg, this.y, xEgg * sEgg, yEgg * sEgg);
-    rect(this.x + 40 * sEgg, this.y - 20 * sEgg, xEgg * sEgg, yEgg * sEgg);
+    rect(this.x, this.y + 120 * this.s, xEgg + 20 * this.s, yEgg);
+    rect(this.x + 20 * this.s, this.y + 140 * this.s, xEgg, yEgg);
+    rect(this.x + 40 * this.s, this.y + 140 * this.s, xEgg + 60 * this.s, yEgg);
+    rect(this.x - 20 * this.s, this.y + 60 * this.s, xEgg, yEgg + 40 * this.s);
+    rect(this.x, this.y + 20 * this.s, xEgg, yEgg + 20 * this.s);
+    rect(this.x + 20 * this.s, this.y, xEgg, yEgg);
+    rect(this.x + 40 * this.s, this.y - 20 * this.s, xEgg, yEgg);
   }
 
   //coloring egg
   fillColor() {
-    let xEgg = 20;
-    let yEgg = 20;
+    let xEgg = 20 * this.s;
+    let yEgg = 20 * this.s;
 
     noStroke();
     fill(this.r, this.g, this.b);

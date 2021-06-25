@@ -1,6 +1,7 @@
 window.draw = draw;
 window.mouseClicked = mouseClicked;
 
+/*import gsap from "./gsap.min.js";*/
 import Button from "./TamagotchiButton.js";
 import Egg from "./Eggs.js";
 import RabbitStartScreen from "./RabbitStartScreen.js";
@@ -10,13 +11,9 @@ import SpeechBubble from "./SpeechBubble.js";
 import SleepItem from "./SleepItem.js";
 import EatItem from "./EatItem.js";
 
-//load gifand png
-let gif;
-let png;
-function preload() {
-  gif = loadImage("rabbitgameover.gif");
-  png = loadImage("victory.png");
-}
+//images
+let victory = loadImage("victory.png");
+let loose = loadImage("DeadRabbit.png");
 
 //states of development rabbit and screen change
 let grow = "start";
@@ -120,17 +117,17 @@ let speechBubble6 = new SpeechBubble(
 );
 
 //states rabbit
-let rabbitState1 = new RabbitState1(200, 240, 1.0);
+let rabbitState1 = new RabbitState1(200, 240, 0.8);
 let rabbitState2 = new RabbitState2(220, 150, 1.0);
 
 //items
-let sleepItem = new SleepItem(620, 400, 0.6);
-let sleepItem2 = new SleepItem(680, 330, 0.6);
+let sleepItem = new SleepItem(620, 400, 0.6, 0);
+let sleepItem2 = new SleepItem(680, 330, 0.6, 0);
 
-let sleepItem1_1 = new SleepItem(670, 360, 0.6);
-let sleepItem2_2 = new SleepItem(730, 290, 0.6);
+let sleepItem1_1 = new SleepItem(670, 360, 0.6, 0);
+let sleepItem2_2 = new SleepItem(730, 290, 0.6, 0);
 
-let eatItem = new EatItem(250, 500, 0.7);
+let eatItem = new EatItem(200, 500, 0.7);
 
 //draw
 function draw() {
@@ -147,11 +144,6 @@ function draw() {
     stroke(0, 0, 0);
     speechBubble.display();
     rabbitStartScreen.display();
-
-    //details ear
-    fill(255, 255, 255);
-    rect(350, 280, 30, 60);
-    rect(410, 280, 30, 30);
 
     //start button
     startButton.display();
@@ -183,6 +175,7 @@ function draw() {
     watchButton.display();
 
     //draw items
+    sleepItem.colorState = colorState;
     sleepItem.display();
     sleepItem2.display();
     eatItem.display();
@@ -201,6 +194,7 @@ function draw() {
     //rabbit state 2 screen
   } else if (grow === 2) {
     //draw rabbit state 2
+    rabbitState2.colorState = colorState;
     rabbitState2.display();
 
     //draw action buttons
@@ -209,6 +203,8 @@ function draw() {
     watchButton.display();
 
     //draw items
+    sleepItem1_1.colorState = colorState;
+    sleepItem2_2.colorState = colorState;
     sleepItem1_1.display();
     sleepItem2_2.display();
     eatItem.display();
@@ -236,17 +232,18 @@ function draw() {
   if (grow === "end" && win === true) {
     restartButton.display();
     speechBubble5.display();
-    image(png, 250, 350);
+    image(victory, 280, 320, 630, 400);
   }
+
   //game over
   if (foodCounter === 0 || sleepCounter == 0 || attentionCounter == 0) {
     grow = "end";
-
-    image(gif, 250, 200);
-    speechBubble6.display();
     restartButton.display();
+    speechBubble6.display();
+    image(loose, 320, 250, 450, 450);
   }
   if (gameover === true) {
+    //reset counter
     counter = 0;
     foodCounter = 2;
     sleepCounter = 3;
@@ -261,14 +258,17 @@ function mouseClicked() {
     console.log("b1");
     grow = 1;
     colorState = "blue";
+    rabbitState1.colorState = colorState;
   } else if (button2.hitTest() && grow === 0) {
     console.log("b2");
     grow = 1;
     colorState = "pink";
+    rabbitState1.colorState = colorState;
   } else if (button3.hitTest() && grow === 0) {
     console.log("b3");
     grow = 1;
     colorState = "grey";
+    rabbitState1.colorState = colorState;
   }
 
   //start button
@@ -282,6 +282,7 @@ function mouseClicked() {
   if (restartButton.hitTest() && grow === "end") {
     gameover = true;
   }
+
   //feed button
   if (
     (feedButton.hitTest() && grow === 1) ||
@@ -289,9 +290,19 @@ function mouseClicked() {
   ) {
     foodCounter = foodCounter + 1;
     sleepCounter = sleepCounter - 1;
-    eat = true;
+    eatItem.eat = true;
+
+    //animation
+    gsap.to(eatItem, {
+      duration: 0.9,
+      ease: "linear",
+      x: 300,
+      onComplete: () => {
+        doMyAnimation();
+      },
+    });
   } else if (grow === 1 || grow === 2) {
-    eat = false;
+    eatItem.eat = false;
   }
 
   //sleep button
@@ -301,9 +312,19 @@ function mouseClicked() {
   ) {
     sleepCounter = sleepCounter + 1;
     attentionCounter = attentionCounter - 1;
-    sleep = true;
+    rabbitState1.sleep = true;
+    rabbitState2.sleep = true;
+    sleepItem.sleep = true;
+    sleepItem2.sleep = true;
+    sleepItem1_1.sleep = true;
+    sleepItem2_2.sleep = true;
   } else if (grow === 1 || grow === 2) {
-    sleep = false;
+    rabbitState1.sleep = false;
+    rabbitState2.sleep = false;
+    sleepItem.sleep = false;
+    sleepItem2.sleep = false;
+    sleepItem1_1.sleep = false;
+    sleepItem2_2.sleep = false;
   }
 
   //watch button
@@ -331,4 +352,13 @@ function mouseClicked() {
   ) {
     counter = counter + 1;
   }
+}
+
+//animation function
+function doMyAnimation() {
+  gsap.to(eatItem, {
+    duration: 2,
+    ease: "easOutSquad",
+    x: 200,
+  });
 }

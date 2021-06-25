@@ -1,6 +1,5 @@
 function setup() {
   createCanvas(1100, 900);
-  /*canvasSettings.parent("tamagotchi");*/
   frameRate(30);
 }
 

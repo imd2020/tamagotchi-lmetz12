@@ -1,8 +1,10 @@
 export default class RabbitState2 {
-  constructor(x, y, s) {
+  constructor(x, y, s, colorState) {
     this.x = x;
     this.y = y;
     this.s = s;
+    this.colorState = colorState;
+    this.sleep = false;
   }
 
   display() {
@@ -102,11 +104,11 @@ export default class RabbitState2 {
 
     //color details
     noStroke();
-    if (colorState === "blue") {
+    if (this.colorState === "blue") {
       fill(135, 206, 235);
-    } else if (colorState === "pink") {
+    } else if (this.colorState === "pink") {
       fill(218, 112, 214);
-    } else if (colorState === "grey") {
+    } else if (this.colorState === "grey") {
       fill(128, 128, 128);
     }
 
@@ -230,7 +232,7 @@ export default class RabbitState2 {
     let yEyes = 50;
     let sEyes = 1.0;
 
-    if (sleep === true) {
+    if (this.sleep === true) {
       fill(255, 255, 255);
 
       rect(
@@ -248,12 +250,3 @@ export default class RabbitState2 {
     }
   }
 }
-
-/*function draw() {
-  clear();
-  background(255, 255, 255);
-  rabbitState2.display();
-}
-
-let rabbitState2 = new RabbitState2(160, 130, 1.0);
-*/
