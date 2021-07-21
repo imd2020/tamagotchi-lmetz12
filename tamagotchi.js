@@ -13,7 +13,7 @@ import EatItem from "./EatItem.js";
 
 //images
 let victory = loadImage("victory.png");
-let loose = loadImage("DeadRabbit.png");
+let loose = loadImage("DeadRabbit.PNG");
 
 //states of development rabbit and screen change
 let grow = "start";
